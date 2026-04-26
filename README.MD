@@ -70,7 +70,7 @@ DivyamBhalotia_portfolio.github.io
 | Platform | Link |
 |---|---|
 | 🌐 Portfolio | [divyambhalotia.tech](https://divyambhalotia.tech) |
-| 📧 Email | divyambhalotia9@gmail.com |
+| 📧 Email | bhalotiadivyam@gmail.com |
 | 📱 Phone | +91-7599550014 |
 | 💼 LinkedIn | *www.linkedin.com/in/divyam-bhalotia* |
 | 🐙 GitHub | *https://github.com/DivyamBhalotia* |
