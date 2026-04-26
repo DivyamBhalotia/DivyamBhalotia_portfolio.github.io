@@ -238,6 +238,24 @@
             transform: translateY(-3px);
         }
 
+        .resume-download-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            text-decoration: none;
+            background: #E50914;
+            color: #FFFFFF;
+            border-color: #E50914;
+            box-shadow: 0 0 35px rgba(229, 9, 20, 0.55);
+        }
+
+        .resume-download-btn:hover {
+            background: #cc0710;
+            border-color: #cc0710;
+            color: #FFFFFF;
+            box-shadow: 0 0 50px rgba(229, 9, 20, 0.75);
+        }
+
         .skill-badges {
             display: flex;
             gap: 1rem;
@@ -807,6 +825,55 @@
             transform: translateY(-2px);
         }
 
+        .contact-form button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .button-content {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        .button-spinner {
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(255, 255, 255, 0.35);
+            border-top-color: #FFFFFF;
+            border-radius: 50%;
+            display: none;
+            animation: submitButtonSpin 0.8s linear infinite;
+        }
+
+        .contact-form button.is-loading .button-spinner {
+            display: inline-block;
+        }
+
+        .form-status {
+            min-height: 1.4rem;
+            margin-top: 0.25rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: left;
+        }
+
+        .form-status.success {
+            color: #7DFF9B;
+        }
+
+        .form-status.error {
+            color: #FF7D7D;
+        }
+
+        @keyframes submitButtonSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         .contact-info {
             display: flex;
             justify-content: center;
@@ -1097,9 +1164,10 @@
                 <button class="btn-primary" onclick="document.getElementById('projects').scrollIntoView({ behavior: 'smooth' })">
                     View My Work
                 </button>
-                <button class="btn-secondary" onclick="downloadResume()">
-                    Download Resume
-                </button>
+                <a class="btn-secondary resume-download-btn" href="resume.pdf" download="Divyam-Bhalotia-Resume.pdf">
+                    <i class="fas fa-file-arrow-down" aria-hidden="true"></i>
+                    <span>Download Resume</span>
+                </a>
             </div>
             <div class="skill-badges">
                 <span class="badge">Figma</span>
@@ -1321,17 +1389,23 @@
         <div class="contact-container">
             <h2 class="contact-title fade-in">LET'S BUILD SOMETHING GREAT</h2>
             
-            <form class="contact-form fade-in" onsubmit="handleFormSubmit(event)">
+            <form id="contactForm" class="contact-form fade-in" onsubmit="handleFormSubmit(event)">
                 <div class="form-group">
-                    <input type="text" id="contactName" placeholder="Your Name" required>
+                    <input type="text" id="contactName" name="name" placeholder="Full Name" required>
                 </div>
                 <div class="form-group">
-                    <input type="email" id="contactEmail" placeholder="Your Email" required>
+                    <input type="email" id="contactEmail" name="email" placeholder="Email" required>
                 </div>
                 <div class="form-group">
-                    <textarea id="contactMessage" placeholder="Your Message" required></textarea>
+                    <textarea id="contactMessage" name="message" placeholder="Message" required></textarea>
                 </div>
-                <button type="submit" class="btn-primary">Send Message</button>
+                <button type="submit" class="btn-primary" id="contactSubmitButton">
+                    <span class="button-content">
+                        <span class="button-text">Send Message</span>
+                        <span class="button-spinner" aria-hidden="true"></span>
+                    </span>
+                </button>
+                <p class="form-status" id="formStatus" aria-live="polite"></p>
             </form>
 
             <div class="contact-info fade-in">
@@ -1509,22 +1583,79 @@
             });
         }
 
-        // SECTION: Form Handling
-        function handleFormSubmit(e) {
-            e.preventDefault();
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const message = document.getElementById('contactMessage').value;
+        // SECTION: Form Handling (Formspree)
+        // Replace YOUR_FORMSPREE_ID with your real Formspree form ID from https://formspree.io/forms
+        const FORMSPREE_ENDPOINT = 'https://formspree.io/f/mlgavvva';
+        const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-            if (name && email && message) {
-                alert(`Thank you, ${name}! Your message has been received. I'll get back to you at ${email} soon.`);
-                document.querySelector('.contact-form').reset();
-            }
+        function updateFormStatus(message, type) {
+            const statusElement = document.getElementById('formStatus');
+            statusElement.textContent = message;
+            statusElement.className = `form-status ${type}`;
         }
 
-        // SECTION: Resume Download
-        function downloadResume() {
-            alert('Resume download functionality would be connected to your actual resume file. For now, this is a demo.');
+        async function handleFormSubmit(e) {
+            e.preventDefault();
+
+            const form = e.currentTarget;
+            const submitButton = document.getElementById('contactSubmitButton');
+            const buttonText = submitButton.querySelector('.button-text');
+            const name = document.getElementById('contactName').value.trim();
+            const email = document.getElementById('contactEmail').value.trim();
+            const message = document.getElementById('contactMessage').value.trim();
+
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+
+            if (!name || !message) {
+                updateFormStatus('Please fill out all fields before submitting.', 'error');
+                return;
+            }
+
+            if (!EMAIL_PATTERN.test(email)) {
+                updateFormStatus('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            submitButton.classList.add('is-loading');
+            submitButton.disabled = true;
+            updateFormStatus('', '');
+
+            try {
+                const response = await fetch(FORMSPREE_ENDPOINT, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify({ name, email, message })
+                });
+
+                let responseData = null;
+                const responseType = response.headers.get('content-type');
+                if (responseType && responseType.includes('application/json')) {
+                    responseData = await response.json();
+                }
+
+                if (!response.ok) {
+                    const apiError = responseData && responseData.errors
+                        ? responseData.errors.map(error => error.message).join(' ')
+                        : 'Sorry, your message could not be sent. Please try again.';
+                    throw new Error(apiError);
+                }
+
+                updateFormStatus("Thanks! I'll get back to you soon.", 'success');
+                form.reset();
+                buttonText.textContent = 'Message Sent';
+            } catch (error) {
+                updateFormStatus(error.message, 'error');
+                submitButton.disabled = false;
+                buttonText.textContent = 'Send Message';
+            } finally {
+                submitButton.classList.remove('is-loading');
+            }
         }
 
         // SECTION: Remove Loading Bar
