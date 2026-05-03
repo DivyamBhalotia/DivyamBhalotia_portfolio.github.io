@@ -559,6 +559,55 @@
             opacity: 1;
         }
 
+        .featured-project .project-thumbnail {
+            background: linear-gradient(135deg, #0f0f0f 0%, #1a0000 100%);
+        }
+
+        .project-badge-new {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--accent-red);
+            color: #fff;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            padding: 0.3rem 0.6rem;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .project-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay-btn {
+            background: var(--accent-red);
+            color: #fff;
+            text-decoration: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 4px;
+            font-weight: 600;
+            box-shadow: 0 0 25px rgba(229, 9, 20, 0.4);
+            transition: var(--transition);
+        }
+
+        .project-overlay-btn:hover {
+            background: #cc0710;
+            box-shadow: 0 0 35px rgba(229, 9, 20, 0.6);
+        }
+
         .project-info {
             padding: 2rem;
         }
@@ -590,6 +639,44 @@
             border-radius: 20px;
             font-size: 0.75rem;
             font-weight: 600;
+        }
+
+        .featured-project .project-title {
+            font-family: 'Bebas Neue', sans-serif;
+            letter-spacing: 1px;
+            font-size: 1.8rem;
+            color: #fff;
+        }
+
+        .featured-project .project-description {
+            color: #8c8c8c;
+        }
+
+        .featured-project .project-tag {
+            background: transparent;
+        }
+
+        .project-links {
+            margin-top: 1.2rem;
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .project-link {
+            text-decoration: none;
+            color: var(--accent-red);
+            border: 1px solid rgba(229, 9, 20, 0.45);
+            border-radius: 20px;
+            padding: 0.35rem 0.85rem;
+            font-size: 0.78rem;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            background: rgba(229, 9, 20, 0.15);
+            border-color: var(--accent-red);
         }
 
         /* SECTION: Skills */
@@ -1146,6 +1233,7 @@
             <li><a href="#about">About</a></li>
             <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="designs.html">Designs</a></li>
             <li><a href="#skills">Skills</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
@@ -1286,6 +1374,31 @@
                             <span class="project-tag">ChatGPT</span>
                             <span class="project-tag">Gemini</span>
                             <span class="project-tag">Research</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-card fade-in featured-project">
+                    <div class="project-thumbnail">
+                        <span class="project-badge-new">NEW</span>
+                        <i class="fas fa-comments"></i>
+                        <div class="project-overlay">
+                            <a class="project-overlay-btn" href="https://econsult-sentiment.vercel.app/">View Project</a>
+                        </div>
+                    </div>
+                    <div class="project-info">
+                        <h3 class="project-title">Sentrix (A Comment Analyzing Site)</h3>
+                        <p class="project-description">
+                            A clean and attractive site which lets you analyze comments effectively.
+                        </p>
+                        </p>
+                        <div class="project-tags">
+                            <span class="project-tag">MangoDB</span>
+                            <span class="project-tag">Microsoft Azure</span>
+                            <span class="project-tag">Figma</span>
+                        </div>
+                        <div class="project-links">
+                            <a class="project-link" href="#">Live Demo</a>
+                            <a class="project-link" href="#">GitHub</a>
                         </div>
                     </div>
                 </div>
