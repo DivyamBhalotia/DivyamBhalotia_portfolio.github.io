@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Works | Divyam Bhalotia</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-card: #141414;
+            --accent-red: #E50914;
+            --text-primary: #ffffff;
+            --text-secondary: #8c8c8c;
+            --border-subtle: rgba(255, 255, 255, 0.12);
+            --transition: all 0.3s ease;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1.2rem 2rem;
+            background: rgba(20, 20, 20, 0.92);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(229, 9, 20, 0.15);
+            z-index: 100;
+            transition: var(--transition);
+        }
+
+        nav.scrolled {
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+        }
+
+        .logo {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.9rem;
+            letter-spacing: 2px;
+            color: var(--accent-red);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            font-size: 0.95rem;
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -5px;
+            width: 0;
+            height: 2px;
+            background: var(--accent-red);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a.active {
+            color: var(--accent-red);
+        }
+
+        .hire-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            border: 0;
+            background: var(--accent-red);
+            color: #fff;
+            border-radius: 4px;
+            padding: 0.68rem 1.35rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: var(--transition);
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.35);
+        }
+
+        .hire-btn:hover {
+            background: #c80710;
+            transform: translateY(-2px);
+            box-shadow: 0 0 26px rgba(229, 9, 20, 0.55);
+        }
+
+        .mobile-menu-toggle {
+            display: none;
+            background: transparent;
+            border: 0;
+            color: var(--accent-red);
+            font-size: 1.45rem;
+            cursor: pointer;
+        }
+
+        #hero {
+            margin-top: 74px;
+            padding: 5.8rem 2rem 3.3rem;
+            background:
+                radial-gradient(circle at 22% 16%, rgba(229, 9, 20, 0.2), transparent 42%),
+                linear-gradient(145deg, #0a0a0a 0%, #130707 100%);
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(3.4rem, 10vw, 7rem);
+            line-height: 0.95;
+            letter-spacing: 6px;
+            margin-bottom: 0.55rem;
+        }
+
+        .hero-subtitle {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            max-width: 650px;
+        }
+
+        #filters {
+            padding: 0.8rem 2rem 0.5rem;
+            background: var(--bg-primary);
+        }
+
+        .filters-wrap {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.65rem;
+        }
+
+        .filter-btn {
+            border: 1px solid var(--border-subtle);
+            background: transparent;
+            color: var(--text-primary);
+            font-size: 0.86rem;
+            font-weight: 600;
+            padding: 0.52rem 1.02rem;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .filter-btn:hover {
+            border-color: rgba(229, 9, 20, 0.7);
+        }
+
+        .filter-btn.active {
+            background: var(--accent-red);
+            border-color: var(--accent-red);
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.35);
+        }
+
+        #works {
+            padding: 1.3rem 2rem 4rem;
+        }
+
+        .works-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+            transition: opacity 0.22s ease, transform 0.22s ease;
+        }
+
+        .works-grid.is-fading {
+            opacity: 0.2;
+            transform: translateY(8px);
+        }
+
+        .site-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 12px;
+            padding: 1.2rem;
+            min-height: 220px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.9rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: transform 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, background 0.35s ease, opacity 0.45s ease;
+        }
+
+        .site-card.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .site-card:hover {
+            transform: scale(1.03);
+            border-color: rgba(229, 9, 20, 0.56);
+            background: #1a1a1a;
+            box-shadow: 0 0 0 1px rgba(229, 9, 20, 0.25), 0 14px 28px rgba(0, 0, 0, 0.42), 0 0 28px rgba(229, 9, 20, 0.28);
+        }
+
+        .card-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.7rem;
+        }
+
+        .site-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2rem;
+            letter-spacing: 1.2px;
+            line-height: 1;
+            color: var(--text-primary);
+        }
+
+        .category-pill {
+            background: rgba(229, 9, 20, 0.18);
+            border: 1px solid rgba(229, 9, 20, 0.5);
+            color: #ffc5c8;
+            border-radius: 999px;
+            padding: 0.24rem 0.68rem;
+            font-size: 0.67rem;
+            letter-spacing: 0.8px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .site-description {
+            color: var(--text-secondary);
+            font-size: 0.93rem;
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+            min-height: 4.2em;
+        }
+
+        .tags-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+        }
+
+        .tag {
+            border: 1px solid rgba(229, 9, 20, 0.55);
+            color: #f3bcc0;
+            background: rgba(229, 9, 20, 0.12);
+            border-radius: 999px;
+            padding: 0.2rem 0.56rem;
+            font-size: 0.73rem;
+            font-weight: 600;
+        }
+
+        .card-divider {
+            width: 100%;
+            height: 1px;
+            background: rgba(255, 255, 255, 0.12);
+            margin-top: auto;
+        }
+
+        .card-actions {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 0.65rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+            text-decoration: none;
+            font-size: 0.84rem;
+            font-weight: 700;
+            padding: 0.62rem 0.65rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-visit {
+            border: 1px solid var(--accent-red);
+            background: var(--accent-red);
+            color: #fff;
+            box-shadow: 0 0 16px rgba(229, 9, 20, 0.3);
+        }
+
+        .btn-visit:hover {
+            background: #fb0e19;
+            border-color: #fb0e19;
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.5);
+        }
+
+        .btn-details {
+            border: 1px solid rgba(229, 9, 20, 0.7);
+            background: transparent;
+            color: #ff9ea4;
+        }
+
+        .btn-details:hover {
+            background: rgba(229, 9, 20, 0.14);
+            color: #ffcdd1;
+        }
+
+        .empty-state {
+            display: none;
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 4rem 1rem;
+            font-size: 1rem;
+        }
+
+        .empty-state.show {
+            display: block;
+        }
+
+        .modal {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.2rem;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transition: opacity 0.25s ease, visibility 0.25s ease;
+            z-index: 200;
+        }
+
+        .modal.active {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+        }
+
+        .modal-panel {
+            width: min(680px, 100%);
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #141414;
+            border-radius: 10px;
+            border-top: 3px solid var(--accent-red);
+            border-left: 1px solid rgba(255, 255, 255, 0.08);
+            border-right: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.35rem 1.35rem 1.45rem;
+            position: relative;
+            transform: translateY(12px) scale(0.98);
+            transition: transform 0.25s ease;
+        }
+
+        .modal.active .modal-panel {
+            transform: translateY(0) scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.85rem;
+            right: 0.95rem;
+            width: 32px;
+            height: 32px;
+            border: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            color: #fff;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .modal-close:hover {
+            background: rgba(229, 9, 20, 0.25);
+            color: #ffd9dc;
+        }
+
+        .modal-title {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            letter-spacing: 2px;
+            line-height: 1;
+            margin-bottom: 1rem;
+            padding-right: 2.4rem;
+        }
+
+        .modal-description {
+            color: var(--text-secondary);
+            line-height: 1.65;
+            font-size: 1rem;
+            margin-bottom: 1.05rem;
+        }
+
+        .modal-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .modal-visit {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            background: var(--accent-red);
+            color: #fff;
+            border-radius: 7px;
+            border: 1px solid var(--accent-red);
+            padding: 0.8rem 1.35rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            transition: var(--transition);
+            box-shadow: 0 0 18px rgba(229, 9, 20, 0.35);
+        }
+
+        .modal-visit:hover {
+            background: #ff1a24;
+            border-color: #ff1a24;
+            box-shadow: 0 0 24px rgba(229, 9, 20, 0.55);
+        }
+
+        footer {
+            padding: 2rem 1rem;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            background: #090909;
+        }
+
+        footer p {
+            color: #7f7f7f;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 1100px) {
+            .works-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 900px) {
+            nav {
+                padding: 1rem 1.15rem;
+            }
+
+            .nav-links {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                display: none;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.9rem;
+                background: rgba(20, 20, 20, 0.98);
+                padding: 1rem 1.2rem 1.15rem;
+                border-top: 1px solid rgba(229, 9, 20, 0.18);
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .mobile-menu-toggle {
+                display: block;
+            }
+
+            .hire-btn {
+                display: none;
+            }
+
+            #hero {
+                padding: 4.8rem 1.2rem 2.7rem;
+            }
+
+            #filters,
+            #works {
+                padding-left: 1.2rem;
+                padding-right: 1.2rem;
+            }
+        }
+
+        @media (max-width: 760px) {
+            .works-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .site-name {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <a href="index.html" class="logo">DB</a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="designs.html">Designs</a></li>
+            <li><a href="works.html" class="active">Works</a></li>
+            <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <a class="hire-btn" href="index.html#contact">Hire Me</a>
+    </nav>
+
+    <section id="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">MY WORKS</h1>
+            <p class="hero-subtitle">Sites I have designed, developed and brought to life</p>
+        </div>
+    </section>
+
+    <section id="filters">
+        <div class="filters-wrap" id="filterBar">
+            <button class="filter-btn active" data-filter="All">All</button>
+            <button class="filter-btn" data-filter="Shopify">Shopify</button> 
+            <button class="filter-btn" data-filter="UI Design">UI Design</button>
+            <!--<button class="filter-btn" data-filter="Branding">Branding</button>-->
+        </div>
+    </section>
+
+    <section id="works">
+        <div class="works-container">
+            <div class="works-grid" id="worksGrid"></div>
+            <p class="empty-state" id="emptyState">No projects in this category yet. Check back soon!</p>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2026 Divyam Bhalotia · divyambhalotia.tech</p>
+    </footer>
+
+    <div class="modal" id="detailsModal" aria-hidden="true">
+        <div class="modal-panel" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-close" id="modalClose" aria-label="Close modal">&times;</button>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-description" id="modalDescription"></p>
+            <div class="modal-tags" id="modalTags"></div>
+            <a class="modal-visit" id="modalVisitLink" href="#" target="_blank" rel="noopener noreferrer">Visit Site →</a>
+        </div>
+    </div>
+
+    <script>
+        /*
+          HOW TO ADD A NEW SITE:
+          Add a new object to the websites array:
+          {
+            name: "Site Name",
+            url: "https://example.com",
+            description: "What you did on this site",
+            tags: ["Shopify", "UI Design"],
+            category: "Shopify"
+          }
+        */
+
+        const websites = [
+            {
+                name: "Zelya",
+                url: "https://zelya.in/",
+                description: "Designed and developed the complete Shopify storefront including UI customization, branding, banners, and visual consistency for a premium product experience.",
+                tags: ["Shopify", "UI Design", "Branding", "Theme Customization"],
+                category: "Shopify"
+            },
+            {
+                name: "Adh Dhuha",
+                url: "https://adhdhuha.com/",
+                description: "Designed and developed the complete Shopify storefront including UI customization, branding, banners, and visual consistency for a premium product experience.",
+                tags: ["Shopify", "UI Design", "Branding", "Theme Customization"],
+                category: "Shopify"
+            },
+            {
+                name: "Aura",
+                url: "https://auralivings.com/",
+                description: "Designed and developed the complete Shopify storefront including UI customization, branding, banners, and visual consistency for a premium product experience.",
+                tags: ["Shopify", "UI Design", "Branding", "Theme Customization"],
+                category: "Shopify"
+            },
+            {
+                name: "Senz India",
+                url: "https://senthurhub.com/",
+                description: "Designed and developed the complete Shopify storefront including UI customization, branding, banners, and visual consistency for a premium product experience.",
+                tags: ["Shopify", "UI Design", "Branding", "Theme Customization"],
+                category: "Shopify"
+            },
+            {
+                name: "East Way",
+                url: "https://eastwayonline.com/",
+                description: "Designed and developed the complete Shopify storefront including UI customization, branding, banners, and visual consistency for a premium product experience.",
+                tags: ["Shopify", "UI Design", "Branding", "Theme Customization"],
+                category: "Shopify"
+            },
+            {
+                name: "Sagex",
+                url: "https://sagex.life/",
+                description: "Designed and developed the complete Shopify storefront including UI customization, branding, banners, and visual consistency for a premium product experience.",
+                tags: ["Shopify", "UI Design", "Branding", "Theme Customization"],
+                category: "Shopify"
+            },
+            {
+                name: "Sage Bros",
+                url: "https://sagebros.in/",
+                description: "Designed and developed the complete Shopify storefront including UI customization, branding, banners, and visual consistency for a premium product experience.",
+                tags: ["Shopify", "UI Design", "Branding", "Theme Customization"],
+                category: "Shopify"
+            },
+            {
+                name: "Sage Bros",
+                url: "https://tinytokens.in/",
+                description: "Designed and developed the complete Shopify storefront including UI customization, branding, banners, and visual consistency for a premium product experience.",
+                tags: ["Shopify", "UI Design", "Branding", "Theme Customization"],
+                category: "Shopify"
+            },
+            {
+                name: "Sentrix",
+                url: "https://econsult-sentiment.vercel.app/",
+                description: "Designed and developed the complete UI/UX of the site as B.Tech Final Year Project. The site performs sentiment analysis on user reviews and provides insights through interactive visualizations.",
+                tags: ["UI Design"],
+                category: "UI Design"
+            }
+        ];
+
+        const navbar = document.getElementById('navbar');
+        const navLinks = document.getElementById('navLinks');
+        const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+        const worksGrid = document.getElementById('worksGrid');
+        const filterBar = document.getElementById('filterBar');
+        const emptyState = document.getElementById('emptyState');
+        const modal = document.getElementById('detailsModal');
+        const modalClose = document.getElementById('modalClose');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDescription = document.getElementById('modalDescription');
+        const modalTags = document.getElementById('modalTags');
+        const modalVisitLink = document.getElementById('modalVisitLink');
+
+        let activeFilter = 'All';
+
+        function getFilteredWebsites() {
+            if (activeFilter === 'All') {
+                return websites;
+            }
+            return websites.filter(site => site.category === activeFilter);
+        }
+
+        function createCard(site, index) {
+            const card = document.createElement('article');
+            card.className = 'site-card';
+            card.style.transitionDelay = `${index * 90}ms`;
+
+            const top = document.createElement('div');
+            top.className = 'card-top';
+
+            const name = document.createElement('h3');
+            name.className = 'site-name';
+            name.textContent = site.name;
+
+            const category = document.createElement('span');
+            category.className = 'category-pill';
+            category.textContent = site.category.toUpperCase();
+
+            top.append(name, category);
+
+            const description = document.createElement('p');
+            description.className = 'site-description';
+            description.textContent = site.description;
+
+            const tagsWrap = document.createElement('div');
+            tagsWrap.className = 'tags-wrap';
+            site.tags.forEach(tagText => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = tagText;
+                tagsWrap.appendChild(tag);
+            });
+
+            const divider = document.createElement('div');
+            divider.className = 'card-divider';
+
+            const actions = document.createElement('div');
+            actions.className = 'card-actions';
+
+            const visitLink = document.createElement('a');
+            visitLink.className = 'btn btn-visit';
+            visitLink.href = site.url;
+            visitLink.target = '_blank';
+            visitLink.rel = 'noopener noreferrer';
+            visitLink.textContent = 'Visit Site →';
+
+            const detailsButton = document.createElement('button');
+            detailsButton.className = 'btn btn-details';
+            detailsButton.type = 'button';
+            detailsButton.textContent = 'View Details';
+            detailsButton.addEventListener('click', () => openModal(site));
+
+            actions.append(visitLink, detailsButton);
+            card.append(top, description, tagsWrap, divider, actions);
+
+            return card;
+        }
+
+        function renderCards() {
+            const filtered = getFilteredWebsites();
+            worksGrid.innerHTML = '';
+
+            if (!filtered.length) {
+                emptyState.classList.add('show');
+                return;
+            }
+
+            emptyState.classList.remove('show');
+
+            filtered.forEach((site, index) => {
+                worksGrid.appendChild(createCard(site, index));
+            });
+
+            requestAnimationFrame(() => {
+                worksGrid.querySelectorAll('.site-card').forEach(card => {
+                    card.classList.add('show');
+                });
+            });
+        }
+
+        function setActiveFilter(nextFilter) {
+            if (nextFilter === activeFilter) {
+                return;
+            }
+
+            activeFilter = nextFilter;
+            filterBar.querySelectorAll('.filter-btn').forEach(button => {
+                button.classList.toggle('active', button.dataset.filter === nextFilter);
+            });
+
+            worksGrid.classList.add('is-fading');
+            window.setTimeout(() => {
+                renderCards();
+                worksGrid.classList.remove('is-fading');
+            }, 170);
+        }
+
+        function openModal(site) {
+            modalTitle.textContent = site.name;
+            modalDescription.textContent = site.description;
+            modalVisitLink.href = site.url;
+            modalTags.innerHTML = '';
+            site.tags.forEach(tagText => {
+                const tag = document.createElement('span');
+                tag.className = 'tag';
+                tag.textContent = tagText;
+                modalTags.appendChild(tag);
+            });
+
+            modal.classList.add('active');
+            modal.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modal.classList.remove('active');
+            modal.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+        }
+
+        filterBar.addEventListener('click', event => {
+            const button = event.target.closest('.filter-btn');
+            if (!button) {
+                return;
+            }
+            setActiveFilter(button.dataset.filter);
+        });
+
+        modalClose.addEventListener('click', closeModal);
+
+        modal.addEventListener('click', event => {
+            if (event.target === modal) {
+                closeModal();
+            }
+        });
+
+        document.addEventListener('keydown', event => {
+            if (event.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        mobileMenuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+            });
+        });
+
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        renderCards();
+    </script>
+</body>
+</html>
