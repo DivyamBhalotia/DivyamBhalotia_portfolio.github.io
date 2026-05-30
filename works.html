@@ -53,12 +53,13 @@
         }
 
         nav.scrolled {
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
         }
 
         .logo {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.9rem;
+            font-size: 1.8rem;
+            font-weight: bold;
             letter-spacing: 2px;
             color: var(--accent-red);
             text-decoration: none;
@@ -105,30 +106,36 @@
             align-items: center;
             justify-content: center;
             text-decoration: none;
-            border: 0;
+            border: none;
             background: var(--accent-red);
             color: #fff;
             border-radius: 4px;
-            padding: 0.68rem 1.35rem;
+            padding: 0.7rem 1.5rem;
             font-size: 0.9rem;
             font-weight: 600;
             transition: var(--transition);
-            box-shadow: 0 0 20px rgba(229, 9, 20, 0.35);
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.3);
         }
 
         .hire-btn:hover {
-            background: #c80710;
+            background: #cc0710;
             transform: translateY(-2px);
-            box-shadow: 0 0 26px rgba(229, 9, 20, 0.55);
+            box-shadow: 0 0 30px rgba(229, 9, 20, 0.6);
         }
 
         .mobile-menu-toggle {
             display: none;
-            background: transparent;
-            border: 0;
+            background: none;
+            border: none;
             color: var(--accent-red);
-            font-size: 1.45rem;
+            font-size: 1.5rem;
             cursor: pointer;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
         }
 
         #hero {
@@ -530,6 +537,16 @@
             .site-name {
                 font-size: 1.8rem;
             }
+
+            .modal-panel {
+                width: calc(100% - 1.5rem);
+                padding: 1.2rem;
+            }
+
+            .card-top {
+                align-items: flex-start;
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -538,14 +555,19 @@
         <a href="index.html" class="logo">DB</a>
         <ul class="nav-links" id="navLinks">
             <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="index.html#experience">Experience</a></li>
+            <li><a href="index.html#projects">Projects</a></li>
             <li><a href="designs.html">Designs</a></li>
             <li><a href="works.html" class="active">Works</a></li>
             <li><a href="index.html#contact">Contact</a></li>
         </ul>
-        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-            <i class="fas fa-bars"></i>
-        </button>
-        <a class="hire-btn" href="index.html#contact">Hire Me</a>
+        <div class="nav-actions">
+            <a class="hire-btn" href="index.html#contact">Hire Me</a>
+            <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
     </nav>
 
     <section id="hero">
